@@ -1,34 +1,42 @@
 import React, { Component } from "react";
+import {  connect } from 'react-redux';
+
 import "./App.css";
+
+
+import { increment, decrement } from './ducks/counter';
+
 
 class App extends Component {
   render() {
+    console.log(this.props)
     return (
+      
       <div className="app">
         <section className="counter">
-          <h1 className="counter__current-value">{ 0 }</h1>
+          <h1 className="counter__current-value">{this.props.currentValue }</h1>
           <div className="counter__button-wrapper">
             <button
               className="counter__button increment-one"
-              onClick={ () => null }
+              onClick={ () => this.props.increment(1) }
             >
               +1
             </button>
             <button
               className="counter__button increment-five"
-              onClick={ () => null }
+              onClick={ () => this.props.increment(5) }
             >
               +5
             </button>
             <button
               className="counter__button decrement-one"
-              onClick={ () => null }
+              onClick={ () => this.props.decrement(1) }
             >
               -1
             </button>
             <button
               className="counter__button decrement-five"
-              onClick={ () => null }
+              onClick={ () => this.props.decrement(5) }
             >
               -5
             </button>
@@ -55,8 +63,13 @@ class App extends Component {
           </pre>
         </section>
       </div>
+     
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => state
+
+
+
+export default connect(mapStateToProps,{ increment, decrement })(App);
